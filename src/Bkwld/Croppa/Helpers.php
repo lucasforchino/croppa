@@ -27,6 +27,20 @@ class Helpers {
 		$this->storage = $storage;
 	}
 
+
+	public function writeCrop($path, $width, $height, $options = array()){
+
+		$image = new Image(
+			$this->storage->readSrc($path), 
+			$this->url->phpThumbConfig($options)
+		);
+		
+		// Process the image and write its data to disk
+		$this->storage->writeCrop($crop_path, 
+			$image->process($width, $height, $options)->get()
+		);
+	}
+
 	/**
 	 * Delete source image and all of it's crops
 	 *
